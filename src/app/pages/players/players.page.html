@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <app-top-bar title="Players"></app-top-bar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list *ngIf="players !== undefined">
+    <ng-template ngFor let-player [ngForOf]="players">
+      <ion-item-divider [color]="(player.id == getCurrentPlayerId()) ? 'primary' : 'light'" (click)="setCurrentPlayer(player)">{{player.name}}</ion-item-divider>
+      <ion-item>
+        <ion-label>Turned on</ion-label>
+        <ion-toggle [(ngModel)]="player.power" (ionChange)="turnOnOff(player)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-range min="0" max="100" step="2" pin="true" [(ngModel)]="player.volume" (ionChange)="setVolume(player)">
+          <ion-icon range-left name="volume-down"></ion-icon>
+          <ion-icon range-right name="volume-up"></ion-icon>
+        </ion-range>
+      </ion-item>
+    </ng-template>
+  </ion-list>
+</ion-content>

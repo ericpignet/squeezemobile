@@ -1,0 +1,31 @@
+<ion-header>
+  <app-top-bar title="Playlist"></app-top-bar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="(status !== undefined) && (status.result.playlist_loop !== undefined)">
+    <ion-item id="currentTrack">
+      <ion-label>{{status.result.playlist_loop[status.result.playlist_cur_index].title}}</ion-label>
+      <ion-icon name="play-skip-back" (click)="previousTrack()" item-end></ion-icon>
+      <ion-icon *ngIf="(status.result.mode == 'stop') || (status.result.mode == 'pause')" name="play" (click)="play()" item-end></ion-icon>
+      <ion-icon *ngIf="(status.result.mode == 'play')" name="pause" (click)="pause()" item-end></ion-icon>
+      <ion-icon name="play-skip-forward" item-end (click)="nextTrack()"></ion-icon>
+      <ion-icon name="close" item-end (click)="clearPlaylist()"></ion-icon>
+    </ion-item>
+
+    <ion-reorder-group (ionItemReorder)="reorderItems($event)" disabled="false">
+      <ion-item *ngFor="let track of status.result.playlist_loop" detail-none>
+        <ion-thumbnail item-start>
+          <img *ngIf="track.artwork_track_id !== undefined" src="{{serverAddress}}/music/{{track.artwork_track_id}}/cover.jpg">
+        </ion-thumbnail>
+        <ion-icon *ngIf="status.result.playlist_cur_index == track['playlist index']" name="musical-note" item-start></ion-icon>
+        <ion-label (click)="playTrackInPlaylist(track)">
+          <h2>{{track.title}}</h2>
+          <p>{{ Math.floor(track.duration / 60) }}:{{Math.floor(track.duration % 60)}} - {{track.artist}} - {{track.album}}</p>
+        </ion-label>
+        <ion-icon (click)="removeTrack(track)" name="close" item-end></ion-icon>
+        <ion-reorder slot="end"></ion-reorder>
+      </ion-item>
+    </ion-reorder-group>
+  </ion-list>
+</ion-content>

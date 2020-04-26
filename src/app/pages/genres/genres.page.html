@@ -1,0 +1,44 @@
+<ion-header>
+  <app-top-bar title="Genres" (settingsChanged)="getGenres()"></app-top-bar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar
+    [(ngModel)]="searchString"
+    [showCancelButton]="shouldShowCancel"
+    (ionInput)="onInputSearch($event)"
+    (ionCancel)="onCancelSearch($event)">
+  </ion-searchbar>
+
+  <ion-list *ngIf="!isSearch && (genres !== undefined)">
+    <ion-item *ngFor="let genre of genres" (click)="itemSelected(genre)">
+      {{ genre.name }}
+    </ion-item>  
+  </ion-list>
+
+  <ion-list *ngIf="isSearch && (searchResults !== undefined)">
+    <ng-container *ngIf="(searchResults.result.albums_count !== undefined) && (searchResults.result.albums_count>0)">
+      <ion-item-divider>Albums</ion-item-divider>
+      <ion-item *ngFor="let album of searchResults.result.albums_loop">
+          <ion-label>{{album.album}}</ion-label>
+        <ion-icon item-end (click)="addAlbum(album)" name="add"></ion-icon>
+      </ion-item>
+    </ng-container>
+
+    <!--ng-container *ngIf="(searchResults.result.artists_count !== undefined) && (searchResults.result.artists_count>0)">
+      <ion-item-divider>Artists</ion-item-divider>
+      <ion-item *ngFor="let artist of searchResults.result.artists_loop">
+        <ion-label>{{artist.artist}}</ion-label>
+        <ion-icon item-end (click)="addA(album)" name="add"></ion-icon>
+      </ion-item>
+    </ng-container-->
+  
+    <ng-container *ngIf="(searchResults.result.tracks_count !== undefined) && (searchResults.result.tracks_count>0)">
+      <ion-item-divider>Songs</ion-item-divider>
+      <ion-item *ngFor="let song of searchResults.result.tracks_loop">
+        <ion-label>{{song.track}}</ion-label>
+        <ion-icon item-end (click)="addSong(song)" name="add"></ion-icon>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+</ion-content>

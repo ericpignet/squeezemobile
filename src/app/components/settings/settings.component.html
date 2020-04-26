@@ -1,0 +1,51 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-title>Settings</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelModal()">
+        <span ion-text color="primary">Cancel</span>
+        <!--ion-icon name="md-close" showWhen="android,windows"></ion-icon-->
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons end>
+        <ion-button [disabled]="!serverForm.controls.serverAddressControl.valid" (click)="applyModal()">
+          <span ion-text color="primary">Done</span>
+          <!--ion-icon name="md-close" showWhen="android,windows"></ion-icon-->
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <form [formGroup]="serverForm">
+        <ion-item-divider>Server address</ion-item-divider>
+        <ion-item>
+        <ion-label color="primary" stacked>Server Address</ion-label>
+        <ion-input type="url" formControlName="serverAddressControl" [(ngModel)]="serverAddress" placeholder="http://192.168.0.1:9000"></ion-input>
+      </ion-item>
+      <ion-item class="no-line error" *ngIf="!serverForm.controls.serverAddressControl.valid  && (serverForm.controls.serverAddressControl.dirty || submitAttempt) && !serverForm.controls.serverAddressControl.pending">
+        <p *ngIf="serverForm.value.serverAddressControl != ''">Server Address not valid</p>
+        <p *ngIf="serverForm.value.serverAddressControl == ''">Server Address required</p>
+      </ion-item>
+      <ion-item-divider>Authentication (optional)</ion-item-divider>
+      <ion-item>
+        <ion-label color="primary" stacked>User</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" stacked>Password</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+      </form>
+
+  </ion-list>
+  <div padding="1rem;">
+    <h2>About</h2>
+    <p>Copyright Eric Pignet 2018</p>
+    <p><a href="https://github.com/ericpignet/squeeze-mobile">https://github.com/ericpignet/squeeze-mobile</a></p>
+  </div>
+</ion-content>
