@@ -41,4 +41,8 @@ Then browse your song collection in the 'Browse' tab and play or add to playlist
 Buttons to play/pause etc. are in the 'Playlist' tab.
 You can reorder your playlist by using the reorder controlers on the right of each song.
 
+## Remarks
+
+In case the application is installed on another server than the one hosting Logitech Media Server, you may have CORS (Cross-origin resource sharing) errors. You can solve them by installing the 'CORS Header Support plugin' from Darren Gibson.
+
 In case of problem, don't hesitate to log an issue in Github.
