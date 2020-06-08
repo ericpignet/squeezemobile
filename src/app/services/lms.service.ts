@@ -11,7 +11,7 @@ export interface Song   { name: string; id: string; trackNum: string}
 @Injectable({
   providedIn: 'root'
 })
-@Injectable()
+
 export class LmsService {
   jsonrpcUrl: string;
   serverAddress: string;
